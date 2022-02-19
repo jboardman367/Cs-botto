@@ -50,14 +50,14 @@ namespace Bot.Game.Ball
             {
                 Location = new Vector3(-touch.Location.Value.X, -touch.Location.Value.Y, touch.Location.Value.Z);
                 TimeSinceTouch = currentGameSeconds - touch.GameSeconds;
-                Car = GameState.GetCarByIndex(touch.PlayerIndex);
+                Car = GameState.Cars[touch.PlayerIndex];
                 Normal = new Vector3(-touch.Normal.Value.X, -touch.Normal.Value.Y, touch.Normal.Value.Z);
             }
             else
             {
                 Location = new Vector3(touch.Location.Value.X, touch.Location.Value.Y, touch.Location.Value.Z);
                 TimeSinceTouch = currentGameSeconds - touch.GameSeconds;
-                Car = GameState.GetCarByIndex(touch.PlayerIndex);
+                Car = GameState.Cars[touch.PlayerIndex];
                 Normal = new Vector3(touch.Normal.Value.X, touch.Normal.Value.Y, touch.Normal.Value.Z);
             }
         }

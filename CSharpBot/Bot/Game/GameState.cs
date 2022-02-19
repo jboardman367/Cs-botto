@@ -26,7 +26,7 @@ namespace Bot.Game
             Ball.Update(packet, ballPrediction, inverted);
 
             // Update the boosts
-            Boosts = Boosts ?? CreateBoosts(fieldInfo, inverted);
+            Boosts ??= CreateBoosts(fieldInfo, inverted);
             for (int i = 0; i < fieldInfo.BoostPadsLength; i++)
             {
                 if (!fieldInfo.BoostPads(i).Value.IsFullBoost)
@@ -35,11 +35,14 @@ namespace Bot.Game
                 }
             }
 
+            // Update the cars
+            Cars ??= CreateCars(packet, inverted);
+
             // Update the last seconds for dt
             lastGameSeconds = packet.GameInfo.Value.SecondsElapsed;
         }
 
-        public static Boost[] CreateBoosts(rlbot.flat.FieldInfo fieldInfo, bool inverted)
+        static Boost[] CreateBoosts(rlbot.flat.FieldInfo fieldInfo, bool inverted)
         {
             Boost[] boosts = new Boost[fieldInfo.BoostPadsLength];
             for (int i = 0; i < fieldInfo.BoostPadsLength; i++)
@@ -49,10 +52,18 @@ namespace Bot.Game
             return boosts;
         }
 
-        public static Car GetCarByIndex(int index)
+        static Car[] CreateCars(rlbot.flat.GameTickPacket packet, bool inverted)
         {
-            return new Car();  // TODO: actually fetch the car
+            Car[] cars = new Car[packet.PlayersLength];
+            for (int i = 0; i < packet.PlayersLength; i++)
+            {
+                var player = packet.Players(i).Value;
+                cars[i] = new Car(player, inverted);
+            }
+            return cars;
         }
+
+        public static Car[] Cars { get; private set; }
 
         public static Ball.Ball Ball { get; private set; }
 
