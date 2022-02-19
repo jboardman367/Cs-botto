@@ -42,6 +42,25 @@ namespace Bot.Utilities.Processed.Packet
             Up = new Vector3(-cr * cy * sp - sr * sy, -cr * sy * sp + sr * cy, cp * cr);
         }
 
+        public Orientation(float pitch, float roll, float yaw)
+        {
+            // This constructor is just for mirroring purposes
+            Pitch = pitch;
+            Roll = roll;
+            Yaw = yaw;
+
+            float cp = (float)Math.Cos(Pitch);
+            float cy = (float)Math.Cos(Yaw);
+            float cr = (float)Math.Cos(Roll);
+            float sp = (float)Math.Sin(Pitch);
+            float sy = (float)Math.Sin(Yaw);
+            float sr = (float)Math.Sin(Roll);
+
+            Forward = new Vector3(cp * cy, cp * sy, sp);
+            Right = new Vector3(cy * sp * sr - cr * sy, sy * sp * sr + cr * cy, -cp * sr);
+            Up = new Vector3(-cr * cy * sp - sr * sy, -cr * sy * sp + sr * cy, cp * cr);
+        }
+
         /// <summary>
         /// Gets the <see cref="target"/> relative to an object at the given <see cref="start"/>
         /// location with the given <see cref="orientation"/>.<br/>

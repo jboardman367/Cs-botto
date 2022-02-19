@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bot.StateMachine
+namespace Bot.Game
 {
-    public static partial class EventHandler
+    public class Car
     {
-        static EventHandler() { }
-
     }
 }

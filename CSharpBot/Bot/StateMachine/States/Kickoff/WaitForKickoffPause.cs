@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Bot.Objects;
 using Bot.Utilities.Processed.BallPrediction;
 using Bot.Utilities.Processed.FieldInfo;
 using Bot.Utilities.Processed.Packet;
+using RLBotDotNet;
 
 namespace Bot.StateMachine.States.Kickoff
 {
-    public class Kickoff : State
+    public class WaitForKickoffPause : State
     {
-        public Kickoff()
-        {
-            children.Add("waitForKickoffPause", new WaitForKickoffPause());
-        }
+        int stepCounter;
         public override void Enter()
         {
-
+            stepCounter = 0;
         }
 
         public override void Exit()
         {
-
+            throw new NotImplementedException();
         }
 
         public override void Step()
         {
+            // Wiggles!
+            Controller controller = Bot.Controller;
+            controller.Steer = MathF.Sin(stepCounter / 50f);
 
+            // Call OnKickoffPauseStart if necessary
+            if (packet.GameInfo.IsKickoffPause)
+            {
+                EventHandler.OnKickoffPauseStart();
+            }
         }
 
         Dictionary<string, State> children = new Dictionary<string, State>();

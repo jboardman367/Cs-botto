@@ -8,7 +8,9 @@ namespace Bot.StateMachine
 {
     public static partial class EventHandler
     {
-        static EventHandler() { }
+        public static void OnKickoffComplete()
+        {
 
+        }
     }
 }

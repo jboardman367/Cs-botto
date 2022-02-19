@@ -10,7 +10,7 @@ namespace Bot.Utilities.Processed.FieldInfo
         public GoalInfo[] Goals;
         public BoostPad[] BoostPads;
 
-        public FieldInfo(rlbot.flat.FieldInfo fieldInfo)
+        public FieldInfo(rlbot.flat.FieldInfo fieldInfo, int team)
         {
             Goals = new GoalInfo[fieldInfo.GoalsLength];
             BoostPads = new BoostPad[fieldInfo.BoostPadsLength];
