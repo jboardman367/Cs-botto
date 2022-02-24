@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Bot.Objects;
-using Bot.Utilities.Processed.BallPrediction;
-using Bot.Utilities.Processed.FieldInfo;
-using Bot.Utilities.Processed.Packet;
+using Bot.Game;
+using RLBotDotNet;
+using Bot.StateMachine;
 
 namespace Bot.StateMachine.States.Kickoff
 {
@@ -15,11 +13,13 @@ namespace Bot.StateMachine.States.Kickoff
     {
         public Kickoff()
         {
-            children.Add("waitForKickoffPause", new WaitForKickoffPause());
+            Children.Add("waitForKickoffPause", new WaitForKickoffPause());
+            Children.Add("speedflip", new Speedflip());
+            Children.Add("fifty", new Fifty());
         }
         public override void Enter()
         {
-
+            
         }
 
         public override void Exit()
@@ -29,13 +29,11 @@ namespace Bot.StateMachine.States.Kickoff
 
         public override void Step()
         {
-
+            
         }
 
-        Dictionary<string, State> children = new Dictionary<string, State>();
-        public override Dictionary<string, State> Children { get { return children; } }
-
-        State child = null;
-        public override State Child { get { return child; } }
+        
     }
+
+    
 }

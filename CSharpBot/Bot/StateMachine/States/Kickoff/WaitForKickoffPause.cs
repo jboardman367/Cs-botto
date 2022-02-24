@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bot.Utilities.Processed.BallPrediction;
-using Bot.Utilities.Processed.FieldInfo;
-using Bot.Utilities.Processed.Packet;
 using RLBotDotNet;
+using Bot.Game;
 
 namespace Bot.StateMachine.States.Kickoff
 {
@@ -15,31 +13,29 @@ namespace Bot.StateMachine.States.Kickoff
         int stepCounter;
         public override void Enter()
         {
+            Console.WriteLine("Entering state kickoff.waitForKickoffPause");
             stepCounter = 0;
         }
 
         public override void Exit()
         {
-            throw new NotImplementedException();
+
         }
 
         public override void Step()
         {
             // Wiggles!
-            Controller controller = Bot.Controller;
-            controller.Steer = MathF.Sin(stepCounter / 50f);
+            float steer =  MathF.Sin(stepCounter / 15f);
+            stepCounter++;
 
             // Call OnKickoffPauseStart if necessary
-            if (packet.GameInfo.IsKickoffPause)
+            if (GameState.IsKickoffPause)
             {
                 EventHandler.OnKickoffPauseStart();
             }
+            Bot.Controller = new Controller() { Steer = steer };
         }
 
-        Dictionary<string, State> children = new Dictionary<string, State>();
-        public override Dictionary<string, State> Children { get { return children; } }
-
-        State child = null;
-        public override State Child { get { return child; } }
+        
     }
 }

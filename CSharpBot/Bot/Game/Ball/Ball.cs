@@ -16,7 +16,10 @@ namespace Bot.Game.Ball
 
         public void Update(rlbot.flat.GameTickPacket packet, rlbot.flat.BallPrediction prediction, bool inverted)
         {
-            LastTouch = new Touch(packet.Ball.Value.LatestTouch.Value, packet.GameInfo.Value.SecondsElapsed, inverted);
+            if (packet.Ball.Value.LatestTouch.HasValue)
+            {
+                LastTouch = new Touch(packet.Ball.Value.LatestTouch.Value, packet.GameInfo.Value.SecondsElapsed, inverted);
+            }
             var physics = packet.Ball.Value.Physics.Value;
             if (inverted)
             {

@@ -1,9 +1,6 @@
 ﻿using System.Drawing;
 using System.Numerics;
 using Bot.Game;
-using Bot.Utilities.Processed.BallPrediction;
-using Bot.Utilities.Processed.FieldInfo;
-using Bot.Utilities.Processed.Packet;
 using RLBotDotNet;
 
 namespace Bot
@@ -29,6 +26,6 @@ namespace Bot
 
         // Static fields for states and handlers to access
         static Controller controller = new Controller();
-        public static Controller Controller { get { return controller; } }
+        public static Controller Controller { set { controller = value; } }
     }
 }

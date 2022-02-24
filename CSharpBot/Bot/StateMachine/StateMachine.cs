@@ -1,6 +1,4 @@
-﻿using Bot.Utilities.Processed.BallPrediction;
-using Bot.Utilities.Processed.FieldInfo;
-using Bot.Utilities.Processed.Packet;
+﻿using Bot.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,16 +38,42 @@ namespace Bot.StateMachine
                 }
                 if (lastChild.Child != nextChild)
                 {
+                    lastChild.Child = nextChild;
                     lastChild = nextChild;
                     lastChild.Enter();
                 }
                 lastChild = lastChild.Child;
             }
-            Console.WriteLine("Entered state " + stateStr);
         }
 
         public static void Step()
         {
+            CheckTopLevelEvents();
+            State child = Child;
+            child.Step();
+            while (child.Child != null)
+            {
+                child = child.Child;
+                child.Step();
+            }
+        }
+
+        static void CheckTopLevelEvents()
+        {
+            // Deal with first time through
+            if (lastGoalDif == null)
+            {
+                lastGoalDif = GameState.GoalDif;
+            }
+
+            // Check for scoring
+            if (lastGoalDif != GameState.GoalDif)
+            {
+                EventHandler.OnGoalScored();
+            }
+
+            // Update last_ variables
+            lastGoalDif = GameState.GoalDif;
 
         }
 
@@ -57,5 +81,6 @@ namespace Bot.StateMachine
         public static Dictionary<string, State> Children { get { return children; } }
         static State child;
         public static State Child { get { return child; } }
+        static int? lastGoalDif = null;
     }
 }

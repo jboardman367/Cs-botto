@@ -8,9 +8,10 @@ namespace Bot.StateMachine
 {
     public static partial class EventHandler
     {
-        public static void OnKickoffComplete()
+        public static void OnGoalScored()
         {
-
+            Console.WriteLine("OnGoalScored triggered");
+            StateMachine.ChangeState("kickoff.waitForKickoffPause");
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Bot.StateMachine
     {
         public static void OnKickoffSpeedflipComplete()
         {
-
+            Console.WriteLine("OnKickoffSpeedflipComplete triggered");
+            StateMachine.ChangeState("kickoff.fifty");
         }
     }
 }
