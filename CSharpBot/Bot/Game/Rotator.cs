@@ -45,5 +45,32 @@ namespace Bot.Game
             Right = new Vector3(cy * sp * sr - cr * sy, sy * sp * sr + cr * cy, -cp * sr);
             Up = new Vector3(-cr * cy * sp - sr * sy, -cr * sy * sp + sr * cy, cp * cr);
         }
+
+        public Orientation(Vector3 forward, float roll)
+        {
+            Roll = roll;
+            Yaw = MathF.Atan2(forward.Y, forward.X);
+            Pitch = MathF.Asin(forward.Z);
+
+            float cp = (float)Math.Cos(Pitch);
+            float cy = (float)Math.Cos(Yaw);
+            float cr = (float)Math.Cos(Roll);
+            float sp = (float)Math.Sin(Pitch);
+            float sy = (float)Math.Sin(Yaw);
+            float sr = (float)Math.Sin(Roll);
+
+            Forward = new Vector3(cp * cy, cp * sy, sp);
+            Right = new Vector3(cy * sp * sr - cr * sy, sy * sp * sr + cr * cy, -cp * sr);
+            Up = new Vector3(-cr * cy * sp - sr * sy, -cr * sy * sp + sr * cy, cp * cr);
+        }
+
+        public static Vector3 RelativeFrom(Vector3 target, Orientation orientation)
+        {
+            float x = Vector3.Dot(target, orientation.Forward);
+            float y = Vector3.Dot(target, orientation.Right);
+            float z = Vector3.Dot(target, orientation.Up);
+
+            return new Vector3(x, y, z);
+        }
     }
 }
