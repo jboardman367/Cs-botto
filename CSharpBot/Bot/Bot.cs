@@ -15,7 +15,7 @@ namespace Bot
         public Bot(string botName, int botTeam, int botIndex) : base(botName, botTeam, botIndex) 
         {
             StateMachine.StateMachine.ChangeState("kickoff.waitForKickoffPause");
-            training = new OrientTrainer(this);
+            // training = new OrientTrainer(this);
         }
 
         public override Controller GetOutput(rlbot.flat.GameTickPacket gameTickPacket)
@@ -30,7 +30,6 @@ namespace Bot
             {
                 StateMachine.StateMachine.Step();
             }
-
             return controller;
         }
 
@@ -40,7 +39,7 @@ namespace Bot
 
         public new void SetGameState(RLBotDotNet.GameState.GameState gameState) => base.SetGameState(gameState);
 
-        ITraining training;
+        ITraining training = null;
 
         public void RenderSphere(Color color, Vector3 center, float radius)
         {

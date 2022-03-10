@@ -23,5 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Analysis\" />
+    <Folder Include="StateMachine\States\Aerial\" />
+    <Folder Include="StateMachine\States\Position\" />
+    <Folder Include="StateMachine\States\Shoot\" />
+    <Folder Include="StateMachine\States\Shadow\" />
   </ItemGroup>
 </Project>

@@ -57,7 +57,9 @@ namespace Bot.StateMachine.States.Kickoff
             {
                 if (step <= kickoffStep.Item1)
                 {
-                    Bot.Controller = kickoffStep.Item2;
+                    Controller controller = kickoffStep.Item2;
+                    controller.Boost = GameState.Me.Velocity.Length() < 2290;
+                    Bot.Controller = controller;
                     steps++;
                     return;
                 }

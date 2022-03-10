@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Bot.Game;
 using RLBotDotNet;
 using Bot.StateMachine;
+using System.Numerics;
 
 namespace Bot.StateMachine.States.Kickoff
 {
@@ -19,7 +20,8 @@ namespace Bot.StateMachine.States.Kickoff
         }
         public override void Enter()
         {
-            
+            Console.WriteLine("Entering state kickoff");
+            hasBeenKickoffPause = false;
         }
 
         public override void Exit()
@@ -29,10 +31,13 @@ namespace Bot.StateMachine.States.Kickoff
 
         public override void Step()
         {
-            
+            if (hasBeenKickoffPause |= GameState.IsKickoffPause && (GameState.Ball.Location - Vector3.UnitY * 92.75f).Length() > 300)
+            {
+                EventHandler.OnKickoffComplete();
+            }
         }
 
-        
+        bool hasBeenKickoffPause;
     }
 
     
