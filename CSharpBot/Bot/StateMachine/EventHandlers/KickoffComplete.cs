@@ -11,7 +11,7 @@ namespace Bot.StateMachine
         public static void OnKickoffComplete()
         {
             Console.WriteLine("OnKickoffComplete triggered");
-
+            StateMachine.ChangeState("dribble.catch");
         }
     }
 }

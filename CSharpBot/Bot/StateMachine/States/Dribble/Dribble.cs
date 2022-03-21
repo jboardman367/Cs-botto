@@ -11,6 +11,10 @@ namespace Bot.StateMachine.States.Dribble
         public Dribble()
         {
             Children.Add("flick", new Flick());
+            Children.Add("bounce", new Bounce());
+            Children.Add("carry", new Carry());
+            Children.Add("catch", new Catch());
+            Children.Add("push", new Push());
         }
         public override void Enter()
         {

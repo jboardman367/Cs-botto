@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace Bot.StateMachine.States.Dribble
 {
-    internal class Carry
+    public class Carry : State
     {
+        public override void Enter()
+        {
+            Console.WriteLine("Entering state dribble.carry");
+        }
+
+        public override void Exit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Step()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
