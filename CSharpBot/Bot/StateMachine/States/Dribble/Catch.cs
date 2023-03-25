@@ -23,10 +23,19 @@ namespace Bot.StateMachine.States.Dribble
         public override void Step()
         {
             var me = GameState.Me;
+            var ball = GameState.Ball;
 
             if (me.IsGrounded)
             {
-
+                // Initial version: Bang Bang atba
+                Vector3 ballFromMe = ball.Location - me.Location;
+                Vector3 localBall = Orientation.RelativeFrom(ballFromMe, me.Orientation);
+                Controller controller = new Controller() {
+                    Throttle = 1,
+                    Steer = Math.Clamp(3 * MathF.Atan2(localBall.Y, localBall.X), -1f, 1f)
+                };
+                Bot.Controller = controller;
+                return;
             }
             else
             {
@@ -47,15 +56,21 @@ namespace Bot.StateMachine.States.Dribble
                     // TODO: add in logic for corner landings
                     if (timeToSideWall < timeToBackWall && timeToSideWall < timeToGround)
                     {  // Side wall landing
-
+                        Controller controller = Reorient.GetController(me, new Vector3(0, MathF.Sign(me.Velocity.Y), -0.5f), -MathF.Sign(me.Velocity.X) * Vector3.UnitX);
+                        Bot.Controller = controller;
+                        return;
                     }
                     else if (timeToBackWall < timeToGround)
                     {  // Back wall landing
-
+                        Controller controller = Reorient.GetController(me, new Vector3(MathF.Sign(me.Velocity.X), 0, -0.5f), -MathF.Sign(me.Velocity.Y) * Vector3.UnitY);
+                        Bot.Controller = controller;
+                        return;
                     }
                     else
                     {  // Ground landing
-
+                        Controller controller = Reorient.GetController(me, new Vector3(me.Velocity.X, me.Velocity.Y, 0), Vector3.UnitZ);
+                        Bot.Controller = controller;
+                        return;
                     }
                 }
             }

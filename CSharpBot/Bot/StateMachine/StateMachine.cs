@@ -12,6 +12,7 @@ namespace Bot.StateMachine
         static StateMachine()
         {
             children.Add("kickoff", new States.Kickoff.Kickoff());
+            children.Add("dribble", new States.Dribble.Dribble());
         }
 
         public static void ChangeState(string stateStr)

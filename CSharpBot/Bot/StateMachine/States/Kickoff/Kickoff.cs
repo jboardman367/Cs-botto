@@ -31,7 +31,8 @@ namespace Bot.StateMachine.States.Kickoff
 
         public override void Step()
         {
-            if (hasBeenKickoffPause |= GameState.IsKickoffPause && (GameState.Ball.Location - Vector3.UnitY * 92.75f).Length() > 300)
+            hasBeenKickoffPause |= GameState.IsKickoffPause;
+            if (hasBeenKickoffPause && (GameState.Ball.Location - Vector3.UnitY * 92.75f).Length() > 300)
             {
                 EventHandler.OnKickoffComplete();
             }

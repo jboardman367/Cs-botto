@@ -28,7 +28,7 @@ namespace Bot.StateMachine.States.Dribble
 
         public override void Step()
         {
-            throw new NotImplementedException();
+            // Nothing to put here yet
         }
     }
 }
